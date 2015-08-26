@@ -14,10 +14,10 @@
 
   <h4>Create a todo:</h4>
   <!--- TODO CREATION FORM -->
-  <form action="/todos" method="POST">
+  <form>
     <input type="checkbox" name="completed">
     <input type="text" name="description" required>
-    <input type="submit" value="Create">
+    <input class="create" type="submit" formmethod="POST" formaction="/todos" value="Create">
   </form>
   <hr>
 
@@ -29,8 +29,8 @@
     <form>
       <input type="checkbox" name="completed" <%= completed ? "checked" : "" %>>
       <input type="text" name="description" value="<%= description %>" required>
-      <input type="submit" formmethod="POST" formaction="/todos/<%= id %>?_method=PUT" value="Update">
-      <input type="submit" formmethod="POST" formaction="/todos/<%= id %>?_method=DELETE" value="Delete">
+      <input class="update" type="submit" formmethod="POST" formaction="/todos/<%= id %>?_method=PUT" value="Update">
+      <input class="delete" type="submit" formmethod="POST" formaction="/todos/<%= id %>?_method=DELETE" value="Delete">
     </form>
   </script>
 
