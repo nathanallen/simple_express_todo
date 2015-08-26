@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/todo.css">
+  <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/javascripts/app.js"></script>
+</head>
+<body>
+
+  <h4>Create a todo:</h4>
+  <!--- TODO CREATION FORM -->
+
+  <form action="/todos">
+    <input type="checkbox" name="completed">
+    <input type="text" name="description" required>
+    <input type="submit" method="POST" value="Create">
+  </form>
+  <hr>
+
+  <h4>Active Todos:</h4>
+  <!--- LIST OF TODOS (loop) -->
+
+  <form action="/todos/10">  <!--- note the id -->
+    <input type="checkbox" name="completed">
+    <input type="text" name="description" required>
+    <input type="submit" formmethod="PUT" value="Update">    <!--- necessitates methodOverride -->
+    <input type="submit" formmethod="DELETE" value="Delete"> <!--- necessitates methodOverride -->
+  </form>
+
+
+</body>
+</html>
