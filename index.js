@@ -15,14 +15,27 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use("/static", express.static("public"));
 app.use("/vendor", express.static("bower_components"));
 
-
-
+// DATA
 var todos = [
     {description: "Brush Teeth" , completed: false, id: 0},
     {description: "Take out Garbage" , completed: false, id: 1},
     {description: "Call Mom" , completed: false, id: 2}
 ];
 
+// HELPER
+var PARAM_WHITE_LIST = ["description", "completed", "id"];
+
+function safeParams(obj){
+  var output = {};
+  for( key in obj ){
+    if ( PARAM_WHITE_LIST.indexOf(key) !== -1 ) {
+      output[key] = obj[key];
+    }
+  }
+  return output;
+}
+
+// ROUTES & CONTROLLERS
 
 app.get("/", function(req, res){
   var pathToHTML = path.join(views, "todo.html");
@@ -40,7 +53,7 @@ app.get("/todos/:id", function show(req, res){
 })
 
 app.post("/todos", function create(req, res){
-  var new_todo = req.body;
+  var new_todo = safeParams(req.body);
   new_todo.id = todos.length;
   new_todo.completed = !!new_todo.completed;
   todos.push(new_todo);
@@ -51,7 +64,7 @@ app.post("/todos", function create(req, res){
 app.put("/todos/:id", function update(req, res){
   var id = req.params.id;
   var todo = todos[id]
-  for( key in req.body ){
+  for( key in safeParams(req.body) ){
     todo[key] = req.body[key];
   }
   res.status(200);
