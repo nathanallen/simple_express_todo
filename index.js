@@ -18,15 +18,16 @@ app.get("/", function(req, res){
 app.get("/todos", function index(req, res){
   res.send({
               data: [
-                      {description: "example1" , completed: false},
-                      {description: "example2" , completed: false},
-                      {description: "example3" , completed: false}
+                      {description: "example1" , completed: false, id: 0},
+                      {description: "example2" , completed: false, id: 1},
+                      {description: "example3" , completed: false, id: 2}
                     ]
            });
 })
 
 app.get("/todos/:id", function show(req, res){
-  res.send( { data: [{description: "example" , completed: false}]} )
+  var id = req.params.id;
+  res.send( { data: [{description: "example"+id , completed: false, id: id}]} )
 })
 
 app.post("/todos", function create(req, res){
