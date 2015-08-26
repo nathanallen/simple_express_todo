@@ -1,6 +1,6 @@
 ##Simple Express Todo
 
-Although not a very practical solution, this sample express application demonstrates how one could build a full-CRUD "Todo Style App" using jQuery, front-end templating, and a REST API.
+Although not a very practical solution, this learning application demonstrates how one could build a full-CRUD "Todo Style App" using jQuery, front-end templating, and a REST API.
 
 ## Requirements
 - Must use RESTful conventions.
@@ -8,7 +8,7 @@ Although not a very practical solution, this sample express application demonstr
 
 ### Arbitrary Limitations
 - No Database (only active memory)
-- No backend rendering / EJS.
+- No backend-rendering / EJS.
 - No Single Page App (for simplicity)
 
 **Frontend Tools**  
@@ -19,9 +19,9 @@ Although not a very practical solution, this sample express application demonstr
 - express
 - path
 - body-parser
-- methodOverride
+- method-override
 
-#### Setup
+## Setup
 Make sure to install npm & bower packages:
 ``` bash
 npm install
