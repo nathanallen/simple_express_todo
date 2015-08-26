@@ -2,14 +2,16 @@
 
 Although not a very practical solution, this learning application demonstrates how one could build a full-CRUD "Todo Style App" using jQuery, front-end templating, and a REST API.
 
+For a more advanced, Single Page App version: please see the `single_page_app branch`.
+
 ## Requirements
-- Must use RESTful conventions.
-- Must CRUD resources.
+- Use RESTful API conventions, respond with JSON.
+- CRUD routes for all todo resources.
 
 ### Arbitrary Limitations
 - No Database (only active memory)
 - No backend-rendering / EJS.
-- No Single Page App (for simplicity)
+- No Single Page App (for simplicity) (see the `single_page_app` branch!)
 
 **Frontend Tools**  
 - jQuery
