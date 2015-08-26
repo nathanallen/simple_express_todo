@@ -72,7 +72,7 @@ app.put("/todos/:id", function update(req, res){
     todo[key] = updated[key];
   }
   if (req.xhr) {
-    res.send(todo);
+    res.send({ data: [todo] });
   } else {
     res.redirect("/");
   }
