@@ -4,11 +4,17 @@ var express = require("express"),
 var path = require("path"),
     views = path.join(process.cwd(), "views");
 
+// allow forms to use PUT & DELETE in query parameter: ?_method=DELETE
+var methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
+// parse the body of POST requests / forms
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use("/static", express.static("public"));
 app.use("/vendor", express.static("bower_components"));
+
 
 
 var todos = [
@@ -35,23 +41,26 @@ app.get("/todos/:id", function show(req, res){
 
 app.post("/todos", function create(req, res){
   var new_todo = req.body;
-  new_todo.id = todos.length; // TODO
+  new_todo.id = todos.length;
   new_todo.completed = new_todo.completed || false;
-  todos.push(new_todo); // TODO
+  todos.push(new_todo);
   res.status(200);
   res.redirect("/");
 })
 
 app.put("/todos/:id", function update(req, res){
   var id = req.params.id;
-  todos[id] = req.body; // TODO
+  var todo = todos[id]
+  for( key in req.body ){
+    todo[key] = req.body[key];
+  }
   res.status(200);
   res.redirect("/");
 })
 
 app.delete("/todos/:id", function destroy(req, res){
   var id = req.params.id;
-  todos.splice(id, 1); // TODO
+  todos[id] = null;
   res.status(200);
   res.redirect("/");
 })

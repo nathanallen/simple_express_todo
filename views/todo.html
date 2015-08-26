@@ -26,11 +26,11 @@
   <div id="todo-list-container"></div>
 
   <script type="text/template" id="todo-item-tmpl">
-    <form action="/todos/<%= id %>">
+    <form>
       <input type="checkbox" name="completed" <%= completed ? "checked" : "" %>>
       <input type="text" name="description" value="<%= description %>" required>
-      <input type="submit" formmethod="PUT" value="Update">
-      <input type="submit" formmethod="DELETE" value="Delete">
+      <input type="submit" formmethod="POST" formaction="/todos/<%= id %>?_method=PUT" value="Update">
+      <input type="submit" formmethod="POST" formaction="/todos/<%= id %>?_method=DELETE" value="Delete">
     </form>
   </script>
 

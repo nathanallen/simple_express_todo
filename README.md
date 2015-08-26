@@ -1,9 +1,11 @@
 ##Simple Express Todo
 
-### Limitations
+Although not a very practical solution, this sample express application demonstrates how one could build a full-CRUD "Todo Style App" using jQuery, front-end templating, and a REST API.
+
+### Arbitrary Limitations
 - No Database (only active memory)
 - No backend rendering / EJS.
-- Not a Single Page App (for simplicity)
+- No Single Page App (for simplicity)
 
 ### Requirements
 - Must use RESTful conventions.
@@ -11,7 +13,7 @@
 
 #### Frontend Tools
 - jQuery
-- underscore
+- underscore templating
 
 #### Backend Tools
 - express
