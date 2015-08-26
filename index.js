@@ -4,7 +4,7 @@ var express = require("express"),
 var path = require("path"),
     views = path.join(process.cwd(), "views");
 
-// allow forms to use PUT & DELETE in query parameter: ?_method=DELETE
+// allow forms to use PUT & DELETE -- requires query parameter: ?_method=DELETE
 var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
@@ -42,7 +42,7 @@ app.get("/todos/:id", function show(req, res){
 app.post("/todos", function create(req, res){
   var new_todo = req.body;
   new_todo.id = todos.length;
-  new_todo.completed = new_todo.completed || false;
+  new_todo.completed = !!new_todo.completed;
   todos.push(new_todo);
   res.status(200);
   res.redirect("/");

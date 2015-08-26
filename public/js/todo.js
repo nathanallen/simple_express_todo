@@ -1,16 +1,16 @@
 $(document).ready(function(){
 
-  var $todo_list_container = $("#todo-list-container");
+  var $todo_list = $("#todo-list-container");
 
-  var raw_todo_item_html = $("#todo-item-tmpl").html();
-  var compileTodoItem = _.template(raw_todo_item_html);
+  var raw_item_html = $("#todo-item-tmpl").html();
+  var compileTodoItem = _.template(raw_item_html);
 
   $.get("/todos", function renderTodos(response){
-    response.data.forEach(function(todo){
+    var todos = response.data.map(function(todo){
       if ( !todo ) { return }; // todo is null
-      var item_html = compileTodoItem(todo);
-      $todo_list_container.append(item_html); // Anti-Pattern: Use map instead of forEach and insert into the DOM only once.
-    })
+      return compileTodoItem(todo);
+    });
+    $todo_list.append( todos.join("") );
   })
 
 })
