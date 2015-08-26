@@ -53,26 +53,39 @@ app.get("/todos/:id", function show(req, res){
 })
 
 app.post("/todos", function create(req, res){
-  var new_todo = safeParams(req.body);
-  new_todo.id = todos.length;
-  new_todo.completed = !!new_todo.completed;
-  todos.push(new_todo);
-  res.redirect("/");
+  var todo = safeParams(req.body);
+  todo.id = todos.length;
+  todo.completed = !!todo.completed;
+  todos.push(todo);
+  if (req.xhr) {
+    res.send(todo);
+  } else {
+    res.redirect("/");
+  }
 })
 
 app.put("/todos/:id", function update(req, res){
   var id = req.params.id;
   var todo = todos[id]
-  for( key in safeParams(req.body) ){
-    todo[key] = req.body[key];
+  var updated = safeParams(req.body);
+  for( key in updated  ){
+    todo[key] = updated[key];
   }
-  res.redirect("/");
+  if (req.xhr) {
+    res.send(todo);
+  } else {
+    res.redirect("/");
+  }
 })
 
 app.delete("/todos/:id", function destroy(req, res){
   var id = req.params.id;
   todos[id] = null;
-  res.redirect("/");
+  if (req.xhr) {
+    res.sendStatus(200);
+  } else {
+    res.redirect("/");
+  }
 })
 
 app.listen(3000, function(){
