@@ -1,19 +1,24 @@
-var $todo_list
-
-var view = {};
+var view = {
+  renderTodos: function renderTodos(data) {
+    var $todos = data.map(function buildTodo(todo) {
+      if ( !todo ) { return }; // todo is null
+      return view.compileTodoItem(todo);
+    });
+    this.$todo_list.append( $todos );
+  }
+};
 
 $(document).ready(function(){
 
-  $todo_list = $("#todo-list-container");
-
-  var raw_item_html = $("#todo-item-tmpl").html();
-  view.compileTodoItem = _.template(raw_item_html);
+  view.$todo_list = $("#todo-list-container");
+  view.$todo_create_btn = $("form .create");
+  view.compileTodoItem = _.template( $("#todo-item-tmpl").html() );
 
   $.get("/todos", function handleResponse(response){
-    renderTodos(response.data);
+    view.renderTodos(response.data);
   })
 
-  $("form .create").on("click", function(event){
+  view.$todo_create_btn.on("click", function handleCreate(event){
     event.preventDefault();
     var $input = $(this);
     var $form = $input.parent();
@@ -23,15 +28,15 @@ $(document).ready(function(){
     $.post(action, form_params).
       success(function(response){
         $input[0].parentNode.reset(); // clear form fields
-        renderTodos(response.data);
+        view.renderTodos(response.data);
       }).
       error(function(){
         alert("Sorry, an error occured on create");
-      })
+      });
 
   })
 
-  $todo_list.on("click", ".update, .delete", function handleClick(event) {
+  view.$todo_list.on("click", ".update, .delete", function handleUpdateDestroy(event) {
     event.preventDefault();
     var $input = $(this);
     var $form = $input.parent();
@@ -48,38 +53,9 @@ $(document).ready(function(){
       }).
       error(function(){
         alert("Sorry, an error occured on update/delete");
-      })
+      });
 
-  })
-
-
-})
+  });
 
 
-function newTodoFromForm(params) {
-  var data = paramsToObject( params );
-  data.completed = !!data.completed;
-  data.id = null; // BAD THING
-  renderTodos([data]);
-}
-
-function buildTodo(todo) {
-  if ( !todo ) { return }; // todo is null
-  return view.compileTodoItem(todo);
-}
-
-function renderTodos(data) {
-  var $todos = data.map(buildTodo);
-  $todo_list.append( $todos );
-}
-
-function paramsToObject(params_str) {
-  var output = {};
-  params_str.split("&").forEach(function(pair){
-    var key_val = pair.split("=");
-    var key = key_val[0]
-    var val = key_val[1]
-    output[key] = val;
-  })
-  return output;
-}
+});
