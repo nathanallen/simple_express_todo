@@ -57,7 +57,6 @@ app.post("/todos", function create(req, res){
   new_todo.id = todos.length;
   new_todo.completed = !!new_todo.completed;
   todos.push(new_todo);
-  res.status(200);
   res.redirect("/");
 })
 
@@ -67,14 +66,12 @@ app.put("/todos/:id", function update(req, res){
   for( key in safeParams(req.body) ){
     todo[key] = req.body[key];
   }
-  res.status(200);
   res.redirect("/");
 })
 
 app.delete("/todos/:id", function destroy(req, res){
   var id = req.params.id;
   todos[id] = null;
-  res.status(200);
   res.redirect("/");
 })
 
