@@ -15,11 +15,11 @@ $(document).ready(function(){
 
   $("form .create").on("click", function(event){
     event.preventDefault();
-    var input = this;
     var $input = $(this);
     var $form = $input.parent();
     var form_params = $form.serialize();
     var action = $input.attr("formaction");
+
     $.post(action, form_params, function(){
       $input[0].parentNode.reset()
       newTodoFromForm(form_params); // MISSING ID, NEED SERVER RESPONSE
