@@ -25,10 +25,9 @@
   <!--- LIST OF TODOS (loop) -->
   <div id="todo-list-container"></div>
 
-
   <script type="text/template" id="todo-item-tmpl">
     <form action="/todos/<%= id %>">
-      <input type="checkbox" name="completed" value="<%= completed %>">
+      <input type="checkbox" name="completed" <%= completed ? "checked" : "" %>>
       <input type="text" name="description" value="<%= description %>" required>
       <input type="submit" formmethod="PUT" value="Update">
       <input type="submit" formmethod="DELETE" value="Delete">
