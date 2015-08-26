@@ -20,10 +20,15 @@ $(document).ready(function(){
     var form_params = $form.serialize();
     var action = $input.attr("formaction");
 
-    $.post(action, form_params, function(){
-      $input[0].parentNode.reset()
-      newTodoFromForm(form_params); // MISSING ID, NEED SERVER RESPONSE
-    });
+    $.post(action, form_params).
+      success(function(response){
+        $input[0].parentNode.reset(); // clear form fields
+        renderTodos(response.data);
+      }).
+      error(function(){
+        alert("Sorry, an error occured on create");
+      })
+
   })
 
   $todo_list.on("click", ".update, .delete", function handleClick(event) {
@@ -33,12 +38,17 @@ $(document).ready(function(){
     var form_params = $form.serialize();
     var action = $input.attr("formaction");
 
-    $.post(action, form_params)
-     .success(function(){
+    $.post(action, form_params).
+      success(function(){
         if ( $input.hasClass("delete") ) {
           $form.remove();
+        } else {
+          // do nothing on update
         }
-     })
+      }).
+      error(function(){
+        alert("Sorry, an error occured on update/delete");
+      })
 
   })
 
