@@ -58,7 +58,7 @@ app.post("/todos", function create(req, res){
   todo.completed = !!todo.completed;
   todos.push(todo);
   if (req.xhr) {
-    res.send(todo);
+    res.send({ data: [todo] });
   } else {
     res.redirect("/");
   }
